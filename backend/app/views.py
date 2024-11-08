@@ -35,7 +35,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 import openai
 
-from .models import Card, Deck, Tarot
+from .models import Card, Deck, Tarot, Questions
 
 
 def index(request):
@@ -82,21 +82,32 @@ def divination_card_request(request):
 
 @csrf_exempt
 def generate_prediction(request):
-    question = json.loads(request.body.decode('utf-8')).get("question", None)
+    request_body = json.loads(request.body.decode('utf-8'))
+    question = request_body.get("question", None)
+    user_input = request_body.get("user_input", None)
 
     openai.api_key = settings.OPENAI_KEY
 
-
+    if user_input:
+        Questions.objects.create(question=user_input)
+    
     if question:
-        completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "user", "content": question}
-            ],
-            temperature=0.6,
-            max_tokens=500
-        )
-        response = {'response': completion['choices'][0]['message']['content']}
+        moderation = openai.Moderation.create(input=question)
+        flagged = moderation['results'][0]['flagged']
+
+        if not flagged:
+            completion = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "user", "content": question}
+                ],
+                temperature=0.6,
+                max_tokens=500
+            )
+            response = {'response': completion['choices'][0]['message']['content']}
+            
+        else:
+            response = {'response': "Your question was flagged as inappropriate. Please try again with a different question."}
     else:
         response = {'response': ""}
 

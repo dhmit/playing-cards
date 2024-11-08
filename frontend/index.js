@@ -1,11 +1,12 @@
 import React, {Suspense} from "react";
 import ReactDOM from "react-dom";
 import "./i18n";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, useLocation} from "react-router-dom";
 import "./scss/index.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Base from "./components/global/Base";
 import NavBar from "./components/global/Nav";
+import Footer from "./components/global/Footer";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import History from "./components/pages/History";
@@ -25,14 +26,32 @@ import Games from "./components/pages/Games";
 import SolitaireSelect from "./components/pages/Solitaire";
 import SolitaireGame from "./components/solitaire/SolitaireGame";
 import Cartomancy from "./components/Cartomancy";
+import CartomancyDisplay from "./components/CartomancyDisplay";
 import Bibliography from "./components/pages/Bibliography";
+import FooterNoLinks from "./components/global/FooterNoLinks";
 
-ReactDOM.render(
+const NavWrapper = () => {
+    const location = useLocation();
+    if (location.pathname === "/cartomancy-display") {
+        return;
+    }
+    return <NavBar />;
+};
+
+const FooterWrapper = () => {
+    const location = useLocation();
+    if (location.pathname === "/cartomancy-display") {
+        return <FooterNoLinks />;
+    }
+    return <Footer />;
+};
+
+ReactDOM.createRoot(document.getElementById("app_root")).render(
     <div>
         <Suspense fallback={null}>
             <Base>
                 <BrowserRouter>
-                    <NavBar />
+                    <NavWrapper />
                     <Routes>
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/about" element={<About />} />
@@ -43,6 +62,7 @@ ReactDOM.render(
                         <Route exact path="/solitaire/play/dugourc" element={<SolitaireGame deck="dugourc"/>} />
                         <Route exact path="/solitaire/play/david" element={<SolitaireGame deck="david"/>} />
                         <Route exact path="/cartomancy" element={<Cartomancy />} />
+                        <Route exact path="/cartomancy-display" element={<CartomancyDisplay />} />
                         <Route exact path="/material-aspects" element={<Material />} />
                         <Route exact path="/material-aspects/fronts" element={<Fronts />} />
                         <Route exact path="/material-aspects/backs" element={<Backs />} />
@@ -55,11 +75,11 @@ ReactDOM.render(
                         <Route exact path="/games" element={<Games />} />
                         <Route exact path="/bibliography" element={<Bibliography />} />
                     </Routes>
+                    <FooterWrapper />
                 </BrowserRouter>
             </Base>
         </Suspense>
-    </div>,
-    document.getElementById("app_root")
+    </div>
 );
 
 

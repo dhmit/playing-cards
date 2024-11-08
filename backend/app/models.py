@@ -88,3 +88,9 @@ class Tarot(models.Model):
 
     def __str__(self):
         return f"{self.card} ({self.lang})"
+
+class Questions(models.Model):
+    question = models.CharField(max_length=1500)
+
+    def __str__(self):
+        return f"{self.question}"

@@ -65,63 +65,22 @@ nav {
 *********************************************************************************/
 #Logos {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
     padding-top: 3%;
-    padding-bottom: 1%;
+    padding-bottom: 3%;
     margin-top: 5%;
     margin-bottom: 1%;
     background-color: #e6e6e6;
-}
 
-#BnF_container {
-    display: inline-block;
-    max_width: 25%;
-    height: 100%;
-    margin-left: 5%;
-    margin-right: 10%;
-}
+    .logo-container {
+        display: inline-block;
+        max-width: 25%;
+    }
 
-#BnF_logo {
-    max-width: 200%;
-    height: auto;
-}
-
-#MIT_container {
-    display: inline-block;
-    max_width: 25%;
-    height: 100%;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-#MIT_logo {
-    max-width: 150%;
-    height: auto;
-}
-
-#DH_container {
-    display: inline-block;
-    max_width: 25%;
-    height: 100%;
-    margin-left: 5%;
-    margin-right: -15%;
-}
-
-#DH_logo {
-    max-width: 50%;
-    height: auto;
-}
-
-#Performant_container {
-    display: inline-block;
-    max_width: 25%;
-    height: 100%;
-    margin-top: -1%;
-    margin-right: 25%;
-}
-
-#Performant_logo {
-    max-width: 650%;
-    height: auto;
-    margin: auto;
+    .logo {
+        display: block;
+        width: 100%;
+        max-height: 100px;
+    }
 }
