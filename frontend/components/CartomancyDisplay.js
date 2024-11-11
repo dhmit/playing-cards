@@ -24,13 +24,14 @@ const StartScreen = ({ goToNext }) => {
             <Row>
                 <Col>
                     <p>{t("cartomancy.screen2.p0")}</p>
-                    <p>{t("cartomancy.screen2.p1")}</p>
+                    <p>You can select either three or five cards. The eighteenth-century French cartomancer Jean-Baptiste Alliette recommended using a minimum of 12 cards, but we have decided to reduce the number of cards to simplify the interpretation.</p>
                     <p>{t("cartomancy.screen2.p2")}</p>
                     <ul>
                         <li>{t("cartomancy.screen2.example1")}</li>
                         <li>{t("cartomancy.screen2.example2")}</li>
                         <li>{t("cartomancy.screen2.example3")}</li>
                     </ul>
+                    <p><b>This game is intended to be enjoyed and not taken as actual advice. Neither the Massachusetts Institute of Technology nor the Bodleian Libraries, University of Oxford endorse this game as a guide to personal decisions, or as a means to predict future events</b></p>
                 </Col>
             </Row>
 
